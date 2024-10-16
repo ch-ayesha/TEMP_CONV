@@ -10,23 +10,35 @@ def fahrenheit_to_celsius(fahrenheit):
 
 # Streamlit app
 def main():
-    st.title("Temperature Converter")
-    
-    # Dropdown for conversion selection
-    option = st.selectbox("Choose conversion type:", 
-                          ("Celsius to Fahrenheit", "Fahrenheit to Celsius"))
-    
+    # Add a header with an icon
+    st.markdown("# 🌡️ Temperature Converter")
+    st.markdown("### Easily convert temperatures between Celsius and Fahrenheit.")
+
+    # Add a sidebar for conversion selection
+    st.sidebar.title("Settings")
+    option = st.sidebar.radio("Select conversion type:",
+                              ("Celsius to Fahrenheit", "Fahrenheit to Celsius"))
+
+    # Display an image based on the option selected
     if option == "Celsius to Fahrenheit":
-        celsius = st.number_input("Enter temperature in Celsius:")
+        st.image("https://cdn-icons-png.flaticon.com/512/1684/1684424.png", width=100)
+        celsius = st.slider("Select temperature in Celsius:", min_value=-100, max_value=100, value=0)
         if st.button("Convert"):
             fahrenheit = celsius_to_fahrenheit(celsius)
-            st.success(f"{celsius}°C is equal to {fahrenheit:.2f}°F")
-    
+            st.success(f"🌡️ {celsius}°C is equal to {fahrenheit:.2f}°F")
+            st.balloons()  # Adds balloons animation for fun
+
     elif option == "Fahrenheit to Celsius":
-        fahrenheit = st.number_input("Enter temperature in Fahrenheit:")
+        st.image("https://cdn-icons-png.flaticon.com/512/1684/1684426.png", width=100)
+        fahrenheit = st.slider("Select temperature in Fahrenheit:", min_value=-200, max_value=200, value=32)
         if st.button("Convert"):
             celsius = fahrenheit_to_celsius(fahrenheit)
-            st.success(f"{fahrenheit}°F is equal to {celsius:.2f}°C")
+            st.success(f"🌡️ {fahrenheit}°F is equal to {celsius:.2f}°C")
+            st.snow()  # Adds a snow animation for winter-like effect
+
+    # Add footer information
+    st.sidebar.markdown("### Created with ❤️ using Streamlit")
+    st.sidebar.markdown("[GitHub Repo](https://github.com) | [Contact Us](mailto:support@converter.com)")
 
 if __name__ == "__main__":
     main()
